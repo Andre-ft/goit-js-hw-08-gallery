@@ -10,8 +10,6 @@ export default class Gallery {
         this.makeMarkUp(galleryItems);
         this.makeRefs();
         this.bindEvents();
-        // console.log(this.openModal);
-        // console.log(this.bindEvents)
     }
 
     makeMarkUp(array) {
@@ -47,9 +45,9 @@ export default class Gallery {
     }
 
     bindEvents() {
-        this._ulElement.addEventListener('click', this.onListItemClick);
-        this._closeModalBtn.addEventListener('click', this.onCloseModal);
-        this._overlayElement.addEventListener('click', this.onOverLayClick);
+        this._ulElement.addEventListener('click', this.onListItemClick.bind(this));
+        this._closeModalBtn.addEventListener('click', this.onCloseModal.bind(this));
+        this._overlayElement.addEventListener('click', this.onOverLayClick.bind(this));
     }
 
     onListItemClick(event) {
@@ -57,14 +55,13 @@ export default class Gallery {
         event.preventDefault();
         
         this._currentModalImgElem = event.target;
-        
-        console.log(this.openModal);
+
         this.openModal();
         this.showImage(event.target.dataset.source, event.target.alt);
     }
     
     openModal() {
-        window.addEventListener('keydown', this.onKeyPress);
+        window.addEventListener('keydown', this.onKeyPress.bind(this));
         document.querySelector('.lightbox').classList.add('is-open');    
     }
 
